@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./App.css";
-import Game from "./game";
+import Game from "./components/game";
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Conway's Game of Life</h1>
+        <h2>Conway's Game of Life</h2>
         <Game />
       </div>
     );

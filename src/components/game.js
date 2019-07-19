@@ -1,29 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
+import Cell from "./cell.js";
 
-import "./game.css";
-
-const CELL_SIZE = 20;
+const CELL_SIZE = 15;
 const WIDTH = 800;
-const HEIGHT = 600;
+const HEIGHT = 500;
 
-class Cell extends React.Component {
-  render() {
-    const { x, y } = this.props;
-    return (
-      <div
-        className="Cell"
-        style={{
-          left: `${CELL_SIZE * x + 1}px`,
-          top: `${CELL_SIZE * y + 1}px`,
-          width: `${CELL_SIZE - 1}px`,
-          height: `${CELL_SIZE - 1}px`
-        }}
-      />
-    );
-  }
-}
-
-class Game extends React.Component {
+class Game extends Component {
   constructor() {
     super();
     this.rows = HEIGHT / CELL_SIZE;
@@ -35,8 +17,12 @@ class Game extends React.Component {
   state = {
     cells: [],
     isRunning: false,
-    interval: 10
+    interval: 20
   };
+
+  componentDidMount() {
+    this.handleRandom();
+  }
 
   makeEmptyBoard() {
     let board = [];
@@ -203,7 +189,12 @@ class Game extends React.Component {
           }}
         >
           {cells.map(cell => (
-            <Cell x={cell.x} y={cell.y} key={`${cell.x},${cell.y}`} />
+            <Cell
+              x={cell.x}
+              y={cell.y}
+              key={`${cell.x},${cell.y}`}
+              CELL_SIZE={CELL_SIZE}
+            />
           ))}
         </div>
 
@@ -215,18 +206,30 @@ class Game extends React.Component {
           />{" "}
           msec
           {isRunning ? (
-            <button className="button" onClick={this.stopGame}>
+            <button
+              className="btn btn-primary btn-sm m-1 "
+              onClick={this.stopGame}
+            >
               Stop
             </button>
           ) : (
-            <button className="button" onClick={this.runGame}>
+            <button
+              className="btn btn-primary btn-sm m-1"
+              onClick={this.runGame}
+            >
               Run
             </button>
           )}
-          <button className="button" onClick={this.handleRandom}>
+          <button
+            className="btn btn-primary btn-sm m-1"
+            onClick={this.handleRandom}
+          >
             Random
           </button>
-          <button className="button" onClick={this.handleClear}>
+          <button
+            className="btn btn-primary btn-sm m-1"
+            onClick={this.handleClear}
+          >
             Clear
           </button>
         </div>
